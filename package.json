@@ -1,0 +1,34 @@
+{
+  "name": "bucklescript-jquery",
+  "version": "0.0.1",
+  "description": "Jquery binding for BuckleScript.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "compile": "mkdir -p lib/js && ./node_modules/bs-platform/bin/bsc -I lib/ocaml -c -bs-main lib/ocaml/jquery.ml -bs-package-name $npm_package_name -bs-package-output lib/js || true"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/nebuta/bucklescript-jquery"
+  },
+  "keywords": [
+    "BuckleScript",
+    "OCaml",
+    "JQuery"
+  ],
+  "author": "Nebuta",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/nebuta/bucklescript-jquery/issues"
+  },
+  "homepage": "https://github.com/nebuta/bucklescript-jquery",
+  "devDependencies": {
+    "bs-platform": "^1.0.1"
+  },
+  "dependencies": {
+    "jquery": "^3.1.0"
+  },
+  "bundleDependencies": [
+    "jquery"
+  ]
+}
