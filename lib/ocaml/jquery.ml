@@ -1,5 +1,5 @@
 type jquery;;
-
+type event;;
 type stub;;
 
 type ('a,'b) attr_func = jquery -> int -> 'a -> 'b [@bs.this];;
@@ -17,11 +17,12 @@ external attr : string -> string = "attr" [@@bs.send.pipe: jquery]
 external attr_ : string -> string -> jquery = "attr" [@@bs.send.pipe: jquery]
 external attr__ : 'a Js.t -> jquery = "attr" [@@bs.send.pipe: jquery]
 external attr' : (string,string) attr_func -> jquery = "attr" [@@bs.send.pipe: jquery]
-external hasClass : string -> bool = "hasClass" [@@bs.send.pipe: jquery]
+external hasClass : string -> Js.boolean = "hasClass" [@@bs.send.pipe: jquery]
 external html_get : string = "html" [@@bs.send.pipe: jquery]
 external html : string -> jquery = "html" [@@bs.send.pipe: jquery]
 external html' : (string,string) attr_func -> jquery = "html" [@@bs.send.pipe: jquery]
 external prop : string -> string = "prop" [@@bs.send.pipe: jquery]
+external prop_bool : string -> Js.boolean = "prop" [@@bs.send.pipe: jquery]
 external prop_ : string -> string -> jquery = "prop" [@@bs.send.pipe: jquery]
 external prop__ : 'a Js.t -> jquery = "prop" [@@bs.send.pipe: jquery]
 external prop' : (string,string) attr_func -> jquery = "prop" [@@bs.send.pipe: jquery]
@@ -32,9 +33,9 @@ external removeClass' : (string,string) attr_func -> jquery = "removeClass" [@@b
 external removeProp : string -> jquery = "removeProp" [@@bs.send.pipe: jquery]
 external toggleClass : string -> jquery = "toggleClass" [@@bs.send.pipe: jquery]
 external toggleClass_ : string -> string -> jquery = "toggleClass" [@@bs.send.pipe: jquery]
-external toggleClass' : (string,string) attr_func -> bool -> jquery = "toggleClass" [@@bs.send.pipe: jquery]
-external value : 'a Js.t = "val" [@@bs.send.pipe: jquery]
-external value_ : 'a Js.t -> jquery = "val" [@@bs.send.pipe: jquery]
+external toggleClass' : (string,string) attr_func -> Js.boolean -> jquery = "toggleClass" [@@bs.send.pipe: jquery]
+external value_get : string = "val" [@@bs.send.pipe: jquery]
+external value : string -> jquery = "val" [@@bs.send.pipe: jquery]
 external value' : (string,string) attr_func -> jquery = "val" [@@bs.send.pipe: jquery]
 
 (* CSS *)
@@ -58,10 +59,10 @@ external escapeSelector : string -> string = "" [@@bs.send]
 external offset_get :  js_coord = "offset" [@@bs.send.pipe: jquery]
 external offset :  js_coord -> jquery = "offset" [@@bs.send.pipe: jquery]
 external offset' : (jquery -> int -> js_coord -> js_coord [@bs.this]) -> jquery = "offset" [@@bs.send.pipe: jquery]
-external outerHeight_get : bool -> int = "outerHeight" [@@bs.send.pipe: jquery]
+external outerHeight_get : Js.boolean -> int = "outerHeight" [@@bs.send.pipe: jquery]
 external outerHeight : 'a Js.t -> jquery = "outerHeight" [@@bs.send.pipe: jquery]
 external outerHeight' : (int,int) attr_func -> jquery = "outerHeight" [@@bs.send.pipe: jquery]
-external outerWidth_get : bool -> int = "outerWidth" [@@bs.send.pipe: jquery]
+external outerWidth_get : Js.boolean -> int = "outerWidth" [@@bs.send.pipe: jquery]
 external outerWidth : 'a Js.t -> jquery = "outerWidth" [@@bs.send.pipe: jquery]
 external outerWidth' : (int,int) attr_func -> jquery = "outerWidth" [@@bs.send.pipe: jquery]
 external position : js_coord = "position" [@@bs.send.pipe: jquery]
@@ -74,7 +75,7 @@ external width : 'a Js.t -> jquery = "width" [@@bs.send.pipe: jquery]
 external width' : (int, 'a Js.t) attr_func -> jquery = "width" [@@bs.send.pipe: jquery]
 
 (* Manipulation - Copying *)
-external clone : bool -> bool -> jquery = "clone" [@@bs.send.pipe: jquery]
+external clone : Js.boolean -> Js.boolean -> jquery = "clone" [@@bs.send.pipe: jquery]
 
 (* Manipulation - DOM Insertion, Around *)
 external unwrap : jquery = "unwrap" [@@bs.send.pipe: jquery]
@@ -117,12 +118,15 @@ external replaceAll : 'a Js.t -> jquery = "replaceAll" [@@bs.send.pipe: jquery]
 external replaceWith : 'a Js.t -> jquery = "replaceWith" [@@bs.send.pipe: jquery]
 external replaceWith' : (jquery -> 'a Js.t [@bs.this]) -> jquery = "replaceWith" [@@bs.send.pipe: jquery]
 
+(* Effects - Basics *)
+external toggle : Js.boolean -> jquery = "" [@@bs.send.pipe: jquery]
+external hide : jquery = "" [@@bs.send.pipe: jquery]
+external show : jquery = "" [@@bs.send.pipe: jquery]
+
 (* Done above*)
 
 (*
 (* Effects - Basics *)
-external hide : jquery = "" [@@bs.send.pipe: jquery]
-external show : jquery = "" [@@bs.send.pipe: jquery]
 external toggle : jquery = "" [@@bs.send.pipe: jquery]
 
 (* Effects - Custom *)
@@ -156,34 +160,32 @@ external unload : string -> jquery = "" [@@bs.send.pipe: jquery]
 
 (* Events - Event Handler Attachement *)
 external off : string -> jquery = "" [@@bs.send.pipe: jquery]
-external on : string -> jquery = "" [@@bs.send.pipe: jquery]
+external on : string -> (jquery -> 'a Js.t -> Js.boolean [@bs.this]) -> jquery = "" [@@bs.send.pipe: jquery]
+external on' : string -> string -> (jquery -> 'a Js.t -> Js.boolean [@bs.this]) -> jquery = "on" [@@bs.send.pipe: jquery]
 external one : string -> jquery = "" [@@bs.send.pipe: jquery]
 external trigger : string -> jquery = "" [@@bs.send.pipe: jquery]
 external triggerHandler : string -> jquery = "" [@@bs.send.pipe: jquery]
 
+(* Tree Traversal *)
+
+external closest : string -> jquery = "" [@@bs.send.pipe: jquery]
+
+external find : string -> jquery = "" [@@bs.send.pipe: jquery]
+
+(* Data *)
+external data_get : string -> string = "data" [@@bs.send.pipe: jquery]
+external data : string -> string -> jquery = "data" [@@bs.send.pipe: jquery]
+
+(* Other *)
+external focus : jquery = "" [@@bs.send.pipe: jquery]
+external blur : jquery = "" [@@bs.send.pipe: jquery]
+external hashchange :  (jquery -> 'a Js.t -> Js.boolean [@bs.this]) -> jquery = "" [@@bs.send.pipe: jquery]
+
 
 let jquery = jquery;;
-let addClass = addClass;;
-let css = css;;
+(* let addClass = addClass;;
+ *)let css = css;;
 let outerHeight = outerHeight;;
 (* let cssNumber = cssNumber jquery_;; *)
 
-let demo () =
-	let body = jquery "body" in
-	ignore (body |> addClass "hoge");
-	ignore (body |> addClass' (fun [@bs.this] o i s ->
-		Js.log o;
-		Js.log (jquery' o);
-		s
-	));
-	(* Js.log (cssNumber); *)
-	Js.log @@ string_of_bool (body |> hasClass "hoge");
-	Js.log (body |> html_get);
-	Js.log (body |> html [%bs.obj "hoge"]);
-	Js.log (body |> html_get);
-	(* let div = body in *)
-	let div = body |> append [%bs.raw "'<div>Hey</div>'"] in
-	let _ = body |> css' [%bs.obj {background = "pink"; width = "100px"}] in
-	let _ = div |> attr_ "id" "test" |> css "color" "red" in
-	print_endline "Done";;
 
