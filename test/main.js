@@ -1,9 +1,10 @@
 // How to test:
-// First run `npm run compile_test` to make `lib/js/test.js`.
-// Then webpack this js file and open test_index.html to load it.
+// First run `npm run compile_test` to make `lib/js/test.js` and webpack this main js file.
+// Then open test_index.html to load it.
 
 
 const _ = require('lodash');
+const $ = require('jquery');
 var esprima = require('esprima');
 const ml_compiled = require('../lib/js/test.js');
 
@@ -26,7 +27,7 @@ function programEqual(fn1,fn2) {
 
 // Unit tests
 
-function testAttributes() {
+function attributes_raw() {
   var el = Jquery.jquery("#container");
   el.addClass("test");
   el.addClass(function (_, s) {
@@ -35,4 +36,16 @@ function testAttributes() {
      return 0;
 }
 
-programEqual(ml_compiled.testAttributes,testAttributes);
+function main() {
+	var flag = true;
+	flag &= programEqual(ml_compiled.attributes_raw,attributes_raw);
+	if(flag){
+		console.log("Test success!");
+		$('body').append('<h3>Test success</h3>')
+	}else{
+		console.log("Test failed.");
+		$('body').append('<h3>Test failure</h3>')
+	}
+}
+
+main();

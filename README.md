@@ -24,6 +24,12 @@ webpack -p dist/main.js dist/bundle.js
 
 then load `dist/bundle.js` in your HTML.
 
+## Testing
+
+Run `npm run compile_test` then open `test/test.html`. It should show "Test success" in a browser if test is successful.
+
+Only a small fragment of testing has been added. 
+
 ## Copyright
 
 Copyright 2016 by Nebuta. MIT license.
