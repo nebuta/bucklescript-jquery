@@ -10,7 +10,9 @@ external jquery : string -> jquery = "" [@@bs.module]
 external jquery_ : jquery =  "jquery" [@@bs.module]
 external jquery' : jquery -> jquery = "jquery" [@@bs.module]
 
-type 'a attr_type = Str of string * string | Kv of 'a Js.t;;
+type 'a attr_type = Str of string * string
+	| Kv of 'a Js.t
+	| Func of (string,string) attr_func;;
 
 (* Attributes *)
 external addClass : string -> jquery = "addClass" [@@bs.send.pipe: jquery]
@@ -19,13 +21,14 @@ external attr_get : string -> string = "attr" [@@bs.send.pipe: jquery]
 
 external attr_ : string -> string -> jquery = "attr" [@@bs.send.pipe: jquery]
 external attr__ : 'a Js.t -> jquery = "attr" [@@bs.send.pipe: jquery]
+external attr' : (string,string) attr_func -> jquery = "attr" [@@bs.send.pipe: jquery]
 
 let attr (at : 'a attr_type) (jq : jquery) : jquery =
 	match at with
 		Str (k,v) -> attr_ k v jq;
-		| Kv obj -> attr__ obj jq;;
+		| Kv obj -> attr__ obj jq
+		| Func f -> attr' f jq;;
 
-external attr' : (string,string) attr_func -> jquery = "attr" [@@bs.send.pipe: jquery]
 external hasClass : string -> Js.boolean = "hasClass" [@@bs.send.pipe: jquery]
 external html_get : string = "html" [@@bs.send.pipe: jquery]
 external html : string -> jquery = "html" [@@bs.send.pipe: jquery]
