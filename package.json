@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "compile": "mkdir -p lib/js && ./node_modules/bs-platform/bin/bsc.exe -I lib/ocaml -c -bs-main lib/ocaml/jquery.ml -bs-package-name $npm_package_name -bs-package-output lib/js || true"
+    "compile": "mkdir -p lib/js && ./node_modules/bs-platform/bin/bsc.exe -I lib/ocaml -c -bs-main lib/ocaml/jquery.ml -bs-package-name $npm_package_name -bs-package-output lib/js || true",
+    "compile_test": "mkdir -p lib/js && ./node_modules/bs-platform/bin/bsc.exe -I lib/ocaml -c -bs-main lib/ocaml/test.ml -bs-package-name $npm_package_name -bs-package-output lib/js || true"
   },
   "repository": {
     "type": "git",
@@ -23,7 +24,9 @@
   },
   "homepage": "https://github.com/nebuta/bucklescript-jquery",
   "devDependencies": {
-    "bs-platform": "^1.0.3"
+    "bs-platform": "^1.0.3",
+    "esprima": "^3.0.0",
+    "lodash": "^4.16.2"
   },
   "dependencies": {
     "jquery": "^3.1.0"
