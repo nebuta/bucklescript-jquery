@@ -113,13 +113,15 @@ let val_ at jq =
 
 (* CSS *)
 external css_get : string -> string = "css" [@@bs.send.pipe: jquery]
-external css_get' : string array -> (string,'a) Hashtbl.t = "css" [@@bs.send.pipe: jquery]
+external css_get' : string array -> 'a Js.t = "css" [@@bs.send.pipe: jquery]
 let css_get = css_get
 let css_get' = css_get'
+
 
 external css : string -> string -> jquery = "css" [@@bs.send.pipe: jquery]
 external css' : 'a Js.t -> jquery = "css" [@@bs.send.pipe: jquery]
 external css'' : string -> attr_func_str -> jquery = "css" [@@bs.send.pipe: jquery]
+let css' = css'
 
 external height_get : int = "height" [@@bs.send.pipe: jquery]
 external height : 'a Js.t -> jquery = "height" [@@bs.send.pipe: jquery]

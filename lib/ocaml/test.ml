@@ -13,9 +13,15 @@ let attributes_overloaded () =
 	ignore (el |> attr (`kv ("class","foo")));
 	();;
 
+
 let css_test () =
 	let el = jquery "body" in
-	Js.log (el |> css_get' [|"height"; "background"|]);;
+	let h = el |> css_get' [|"height"; "background"|] in
+	Js.log h;
+	h##background #= "lightblue";
+	Js.log h;
+	el |> css' h;
+	();; 
 
 let () =
 	attributes_raw ();
