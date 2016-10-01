@@ -6,7 +6,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "compile": "mkdir -p lib/js && ./node_modules/bs-platform/bin/bsc.exe -I lib/ocaml -c -bs-main lib/ocaml/jquery.ml -bs-package-name $npm_package_name -bs-package-output lib/js || true",
-    "compile_test": "mkdir -p lib/js && ./node_modules/bs-platform/bin/bsc.exe -I lib/ocaml -c -bs-main lib/ocaml/test.ml -bs-package-name $npm_package_name -bs-package-output lib/js || true && webpack test/main.js test/bundle.js"
+    "compile_test": "mkdir -p lib/js && ./node_modules/bs-platform/bin/bsc.exe -I lib/ocaml -c -bs-main lib/ocaml/test.ml -bs-package-name $npm_package_name -bs-package-output lib/js && webpack test/main.js test/bundle.js"
   },
   "repository": {
     "type": "git",

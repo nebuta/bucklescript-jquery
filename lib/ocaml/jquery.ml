@@ -7,14 +7,9 @@ type attr_func_str = (string,string) attr_func;;
 type js_coord = < top : int ; left : int > Js.t
 
 type t;;
-external jquery : string -> jquery = "" [@@bs.module "jquery", "$"]
-external jquery_ : jquery =  "jquery" [@@bs.module "jquery","$"]
+external jquery : string -> jquery = "" [@@bs.module]
+external jquery_ : jquery =  "jquery" [@@bs.module]
 external jquery' : jquery -> jquery = "jquery" [@@bs.module]
-
-let jquery = jquery;;
-let jquery_ = jquery_;;
-let jquery' = jquery';;
-
 
 (* Attributes *)
 external addClass : string -> jquery = "addClass" [@@bs.send.pipe: jquery]
@@ -118,11 +113,14 @@ let val_ at jq =
 
 (* CSS *)
 external css_get : string -> string = "css" [@@bs.send.pipe: jquery]
-external css_get' : string array -> string = "css" [@@bs.send.pipe: jquery]
+external css_get' : string array -> (string,'a) Hashtbl.t = "css" [@@bs.send.pipe: jquery]
+let css_get = css_get
+let css_get' = css_get'
 
 external css : string -> string -> jquery = "css" [@@bs.send.pipe: jquery]
 external css' : 'a Js.t -> jquery = "css" [@@bs.send.pipe: jquery]
 external css'' : string -> attr_func_str -> jquery = "css" [@@bs.send.pipe: jquery]
+
 external height_get : int = "height" [@@bs.send.pipe: jquery]
 external height : 'a Js.t -> jquery = "height" [@@bs.send.pipe: jquery]
 external height' : (int, 'a Js.t) attr_func -> jquery = "height" [@@bs.send.pipe: jquery]
