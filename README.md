@@ -1,8 +1,8 @@
-# BuckleScript JQuery binding
+# BuckleScript jQuery binding
 
-BuckleScript binding for JQuery 3.1.
+BuckleScript binding for jQuery 3.1.
 
-Still only covers a small part of JQuery, but hopefully this repo and npm package help others understand how to do FFI and make a npm package for BuckleScript.
+Still only covers a small part of jQuery, but hopefully this repo and npm package help others understand how to do FFI and make a npm package for BuckleScript.
 
 ## How to use
 
