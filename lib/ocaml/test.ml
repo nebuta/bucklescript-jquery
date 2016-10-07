@@ -26,4 +26,5 @@ let css_test () =
 let () =
 	attributes_raw ();
 	attributes_overloaded ();
+	append_test ();
 	css_test ();;
