@@ -138,28 +138,11 @@ let height at jq =
 		| `int v -> height_ v jq
 		| `func f -> height' f jq;;
 
-external innerHeight_get : int = "innerHeight" [@@bs.send.pipe: jquery]
-let innerHeight_get = innerHeight_get
+external innerHeight : int = "innerHeight" [@@bs.send.pipe: jquery]
+let innerHeight = innerHeight
 
-external innerHeight : string -> jquery = "innerHeight" [@@bs.send.pipe: jquery]
-external innerHeight_ : int -> jquery = "innerHeight" [@@bs.send.pipe: jquery]
-external innerHeight' : (int, 'a Js.t) attr_func -> jquery = "innerHeight" [@@bs.send.pipe: jquery]
-let height at jq =
-	match at with
-		`str v -> innerHeight v jq
-		| `int v -> innerHeight_ v jq
-		| `func f -> innerHeight' f jq;;	
-
-external innerWidth_get : int = "innerWidth" [@@bs.send.pipe: jquery]
-let innerWidth_get = innerWidth_get
-external innerWidth : string -> jquery = "innerWidth" [@@bs.send.pipe: jquery]
-external innerWidth_ : int -> jquery = "innerWidth" [@@bs.send.pipe: jquery]
-external innerWidth' : (int, 'a Js.t) attr_func -> jquery = "innerWidth" [@@bs.send.pipe: jquery]
-let innerWidth at jq =
-	match at with
-		`str v -> innerWidth v jq
-		| `int v -> innerWidth_ v jq
-		| `func f -> innerWidth' f jq;;	
+external innerWidth : int = "innerWidth" [@@bs.send.pipe: jquery]
+let innerWidth = innerWidth
 
 external cssHooks : 'a Js.t = "" [@@bs.module "jquery"]
 let cssHooks = cssHooks;;
@@ -176,12 +159,16 @@ let offset_get = offset_get
 external offset :  js_coord -> jquery = "offset" [@@bs.send.pipe: jquery]
 external offset' : (jquery -> int -> js_coord -> js_coord [@bs.this]) -> jquery = "offset" [@@bs.send.pipe: jquery]
 
-external outerHeight_get : Js.boolean -> int = "outerHeight" [@@bs.send.pipe: jquery]
-external outerHeight : 'a Js.t -> jquery = "outerHeight" [@@bs.send.pipe: jquery]
-external outerHeight' : (int,int) attr_func -> jquery = "outerHeight" [@@bs.send.pipe: jquery]
-external outerWidth_get : Js.boolean -> int = "outerWidth" [@@bs.send.pipe: jquery]
-external outerWidth : 'a Js.t -> jquery = "outerWidth" [@@bs.send.pipe: jquery]
-external outerWidth' : (int,int) attr_func -> jquery = "outerWidth" [@@bs.send.pipe: jquery]
+external outerHeight : int = "outerHeight" [@@bs.send.pipe: jquery]
+external outerHeight' : Js.boolean -> int = "outerHeight" [@@bs.send.pipe: jquery]
+let outerHeight = outerHeight
+let outerHeight' = outerHeight'
+
+external outerWidth : int = "outerWidth" [@@bs.send.pipe: jquery]
+external outerWidth' : Js.boolean -> int = "outerWidth" [@@bs.send.pipe: jquery]
+let outerWidth = outerWidth
+let outerWidth' = outerWidth'
+
 external position : js_coord = "position" [@@bs.send.pipe: jquery]
 external scrollLeft_get : int = "scrollLeft" [@@bs.send.pipe: jquery]
 external scrollLeft : int -> jquery = "scrollLeft" [@@bs.send.pipe: jquery]
