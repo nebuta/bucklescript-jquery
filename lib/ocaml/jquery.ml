@@ -157,7 +157,11 @@ external offset_get :  js_coord = "offset" [@@bs.send.pipe: jquery]
 let offset_get = offset_get
 
 external offset :  js_coord -> jquery = "offset" [@@bs.send.pipe: jquery]
-external offset' : (jquery -> int -> js_coord -> js_coord [@bs.this]) -> jquery = "offset" [@@bs.send.pipe: jquery]
+external offset' : (js_coord, js_coord) attr_func -> jquery = "offset" [@@bs.send.pipe: jquery]
+let offset at jq =
+	match at with
+		`obj v -> offset v jq
+		| `func f -> offset' f jq;;
 
 external outerHeight : int = "outerHeight" [@@bs.send.pipe: jquery]
 external outerHeight' : Js.boolean -> int = "outerHeight" [@@bs.send.pipe: jquery]
@@ -170,16 +174,36 @@ let outerWidth = outerWidth
 let outerWidth' = outerWidth'
 
 external position : js_coord = "position" [@@bs.send.pipe: jquery]
+let position = position
+
 external scrollLeft_get : int = "scrollLeft" [@@bs.send.pipe: jquery]
+let scrollLeft_get = scrollLeft_get
+
 external scrollLeft : int -> jquery = "scrollLeft" [@@bs.send.pipe: jquery]
+let scrollLeft = scrollLeft
+
 external scrollTop_get : int = "scrollTop" [@@bs.send.pipe: jquery]
+let scrollTop_get = scrollTop_get
+
 external scrollTop : int -> jquery = "scrollTop" [@@bs.send.pipe: jquery]
+let scrollTop = scrollTop
+
 external width_get : int = "width" [@@bs.send.pipe: jquery]
-external width : 'a Js.t -> jquery = "width" [@@bs.send.pipe: jquery]
+let width_get = width_get
+
+external width : string -> jquery = "width" [@@bs.send.pipe: jquery]
+external width_ : int -> jquery = "width" [@@bs.send.pipe: jquery]
 external width' : (int, 'a Js.t) attr_func -> jquery = "width" [@@bs.send.pipe: jquery]
+let width at jq =
+	match at with
+		`str v -> width v jq
+		| `int v -> width_ v jq
+		| `func f -> width' f jq;;
 
 (* Manipulation - Copying *)
 external clone : Js.boolean -> Js.boolean -> jquery = "clone" [@@bs.send.pipe: jquery]
+let clone jq = clone Js.false_ Js.false_ jq
+let clone' = clone
 
 (* Manipulation - DOM Insertion, Around *)
 external unwrap : jquery = "unwrap" [@@bs.send.pipe: jquery]
